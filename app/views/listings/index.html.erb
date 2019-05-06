@@ -20,7 +20,7 @@
         <td><%= listing.title %></td>
         <td><%= listing.description %></td>
         <td><%= listing.cost %></td>
-        <td><%= listing.user %></td>
+        <td><%= listing.user.username %></td>
         <td><%= listing.quantity_listed %></td>
         <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>

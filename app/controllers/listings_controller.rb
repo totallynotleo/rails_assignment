@@ -1,4 +1,5 @@
 class ListingsController < ApplicationController
+  include ListingsHelper
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   # GET /listings
@@ -24,7 +25,8 @@ class ListingsController < ApplicationController
   # POST /listings
   # POST /listings.json
   def create
-    @listing = Listing.new(listing_params)
+    listing_hash = make_listing_hash(listing_params)
+    @listing = Listing.new(listing_hash)
 
     respond_to do |format|
       if @listing.save
@@ -40,8 +42,10 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
+    listing_hash = make_listing_hash(listing_params)
+
     respond_to do |format|
-      if @listing.update(listing_params)
+      if @listing.update(listing_hash)
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
         format.json { render :show, status: :ok, location: @listing }
       else
@@ -69,6 +73,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:title, :description, :cost, :user_id, :quantity_listed)
+      params.require(:listing).permit(:title, :description, :cost, :username, :quantity_listed)
     end
 end
