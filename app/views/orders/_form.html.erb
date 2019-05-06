@@ -17,19 +17,17 @@
   </div>
 
   <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
-  </div>
-
-  <div class="field">
     <%= form.label :user_id %>
     <%= form.text_field :user_id %>
   </div>
 
-  <div class="field">
-    <%= form.label :listing_id %>
-    <%= form.text_field :listing_id %>
-  </div>
+  <p>
+    <%= form.label :listings %><br />
+    <% for listing in Listing.all %>
+      <%= check_box_tag "order[listing_ids][]", listing.id, @order.listings.include?(listing) %>
+      <%=h listing.title %><br />
+    <% end %>
+  </p>
 
   <div class="actions">
     <%= form.submit %>
